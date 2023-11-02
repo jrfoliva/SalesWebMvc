@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SalesWebMvc.Data;
 using Pomelo.EntityFrameworkCore;
+using SalesWebMvc.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +15,9 @@ builder.Services.AddDbContext<SalesWebMvcContext>
         "server=localhost;port=3306;user=root;password=masterkey;database=webseller",
         Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.31-mysql")));
 
-// Add Injeção de dependência SeedingService
+// Add Injeção de dependências
 builder.Services.AddScoped<SeedingService>();
+builder.Services.AddScoped<SellerService>();
 
 var app = builder.Build();
 
