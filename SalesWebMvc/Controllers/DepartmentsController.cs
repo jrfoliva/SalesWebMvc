@@ -23,7 +23,7 @@ namespace SalesWebMvc.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.Department != null ? 
-                          View(await _context.Department.ToListAsync()) :
+                          View(await _context.Department.OrderBy(d => d.Name).ToListAsync()) :
                           Problem("Entity set 'SalesWebMvcContext.Department'  is null.");
         }
 
