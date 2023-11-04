@@ -1,6 +1,8 @@
+using SalesWebMvc.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using SalesWebMvc.Data;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 using Pomelo.EntityFrameworkCore;
 using SalesWebMvc.Services;
 
@@ -21,6 +23,18 @@ builder.Services.AddScoped<SellerService>();
 builder.Services.AddScoped<DepartmentService>();
 
 var app = builder.Build();
+
+var enUS = new CultureInfo("en-US");
+var ptBR = new CultureInfo("pt-BR");
+
+var localizationOptions = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(enUS, ptBR),
+    SupportedCultures = new List<CultureInfo> { enUS, ptBR },
+    SupportedUICultures = new List<CultureInfo> { enUS, ptBR }
+};
+
+app.UseRequestLocalization(localizationOptions);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
